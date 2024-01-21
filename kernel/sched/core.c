@@ -8344,16 +8344,6 @@ static int tg_set_cfs_bandwidth(struct task_group *tg, u64 period, u64 quota,
 		return -EINVAL;
 
 	/*
-	 * Bound quota to defend quota against overflow during bandwidth shift.
-	 */
-	if (quota != RUNTIME_INF && quota > max_cfs_runtime)
-		return -EINVAL;
-
-	if (quota != RUNTIME_INF && (burst > quota ||
-				     burst + quota > max_cfs_runtime))
-		return -EINVAL;
-
-	/*
 	 * Prevent race between setting of cfs_rq->runtime_enabled and
 	 * unthrottle_offline_cfs_rqs().
 	 */
